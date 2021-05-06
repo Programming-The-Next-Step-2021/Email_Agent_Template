@@ -1,6 +1,6 @@
-Package: EMAILTEMPLATE
+Package: Email_Agent_Template
 Type: Package
-Title: EMAIL TEMPLATE
+Title: Email Template
 Version: 0.1.0
 Author: Paula Ottens 
 Maintainer: The package maintainer <paulaottens.gmail.com>
