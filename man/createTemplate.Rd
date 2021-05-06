@@ -9,7 +9,7 @@ createTemplate(x, y)
 \arguments{
 \item{x}{SOME DATA}
 
-\item{y}{SOME OTHER DATA}
+\item{y}{SOME More DATA}
 }
 \value{
 The newly created template
