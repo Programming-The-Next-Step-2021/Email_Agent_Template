@@ -2,9 +2,9 @@ library(shiny)
 
 
 ui <- fluidPage(
-  titlePanel(),
+  titlePanel(titel="Email Template Creator"),
   sidebarLayout(
-    sidebarPanel(),
-    mainPanel()
+    sidebarPanel("select the topics"),
+    mainPanel("this is the email template, output is displayed here")
   )
 )
