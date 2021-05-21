@@ -1,4 +1,4 @@
 library(testthat)
-library(Email_Agent_Template)
+library(shinytest)
+recordTest("~/UVA/programming next step/Email_Agent_Template/Email_Agent_Template.Rproj")
 
-test_check("Email_Agent_Template")
