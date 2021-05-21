@@ -1,4 +1,11 @@
 app <- ShinyDriver$new("../../")
 app$snapshotInit("mytest")
 
+app$setInputs(ending = "afternoon")
+yapp$setInputs(Name = "Pau")
+app$setInputs(Name = "")
+app$setInputs(Name = "test")
+app$setInputs(Name = "test_")
+app$setInputs(Name = "test_name")
+app$setInputs(submit = "click")
 app$snapshot()
