@@ -1,9 +1,11 @@
 library(shiny)
 library(tidyverse)
 library(rdrop2)
-
+library(shinydashboard)
+library(readr)
 # Define the fields we want to save from the form
-fields <- c("type", "topic","ending", "greeting","name")
+fields <- c("type", "topic","Day", "Time", "greeting","name")
+
 
 
 drop_auth()
@@ -48,14 +50,20 @@ loadData <- function() {
   data
 }
 
+
+
+type1<-read_file("first.txt")
+type2<-read_file("reply.txt")
+
+
 #requirements
-  #select response type 
-  #select topic
-  #select ending
-  #select greeting 
-  #add logo
-  #custom design
-  #ability to save pre-witten content 
+#select response type 
+#select topic
+#select ending
+#select greeting 
+#add logo
+#custom design
+#ability to save pre-witten content 
 
 ui <- fluidPage(
   #Application title
@@ -67,14 +75,14 @@ ui <- fluidPage(
       h2 {
         font-family: 'Yusei Magic', sans-serif;
       }")),
-  tags$link(rel = "stylesheet",type = "button/css", href="bootstrap.min.css")),
+    tags$link(rel = "stylesheet",type = "button/css", href="bootstrap.min.css")),
   titlePanel("Custom Email Templates"),
   sidebarLayout(
     
     sidebarPanel(
       
       selectInput("type","Choose a response type:",
-                  c("first_response"="first",
+                  c("first_response"= "first",
                     "reply"="reply",
                     "post_phone"="phone",
                     "update"="update")),
@@ -83,28 +91,40 @@ ui <- fluidPage(
                   list('post delivery/user phase'= list("damage","productcomplaint","invoice","return"),
                        'delivery phase'= list("where is my parcel","returned by courier"))),
       
-      selectInput("ending","Choose an ending:",
-                  list(`Monday`= list("morning","afternoon","evening"),
-                       `Tuesday`= list("morning","afternoon","evening"),
-                       `Wednesday`= list("morning","afternoon","evening"),
-                       `Thursday`= list("morning","afternoon","evening"),
-                       `Friday`= list("morning","afternoon","evening"),
-                       `Saturday`= list("morning","afternoon","evening"),
-                       `Sunday`= list("morning","afternoon","evening"))
-                  ),
+      selectInput("Day","Choose an ending:",
+                  c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday')),
+      
+      selectInput("Time","choose time of the day:",
+                  c("morning","afternoon","evening")),
       
       textInput("Greeting","Type a greeting:","kind regards,"),
       textInput("Name","Type your Name:"),
+      
       actionButton("submit", "Submit")
-     
+      
     ),
     
     mainPanel(
-      textOutput("type"),
-      textOutput("topic"),
-      textOutput("ending"),
-      textOutput("greeting"),
-      textOutput("name"),
+      tabsetPanel(type ="tabs",
+        tabPanel("User Guide",
+                 tags$iframe(style="height:400px; width:100%; scrolling=yes",
+                             src="https://www.dropbox.com/s/6us8lvwrpvyqqxa/userguide.pdf?raw=1")),
+        tabPanel("Summary",
+                 textOutput("type"),
+                 textOutput("topic"),
+                 textOutput("ending"),
+                 textOutput("greeting"),
+                 textOutput("name")),
+        tabPanel("Template",
+                 tags$div(
+                   tags$p(textOutput("type_t")),
+                   tags$p("topic"), 
+                   tags$p("ending"),
+                   tags$p("greeting"),
+                   tags$p("name")
+                 )
+                 )
+      )
       
     ),
   )
@@ -116,11 +136,20 @@ server <- function(input, output, session){
   
   output$topic<-renderText({input$topic})
   
-  output$ending<-renderText({input$ending})
+  output$ending<-renderText(paste0({input$Day}," ",{input$Time}))
   
   output$greeting<-renderText({input$Greeting})
   
   output$name<-renderText({input$Name})
+  
+
+ output$type_t <- renderText({
+   if(input$type=="reply"){
+     type_t<-type2
+   }else if(input$type=="first"){
+     type_t<-type1
+   }
+ })
   
   # Whenever a field is filled, aggregate all form data
   formData <- reactive({
@@ -139,6 +168,6 @@ server <- function(input, output, session){
     input$submit
     loadData()
   }) 
- 
+  
 }
 shinyApp(ui=ui,server = server)

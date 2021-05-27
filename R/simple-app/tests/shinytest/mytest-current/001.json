@@ -2,15 +2,15 @@
   "input": {
     "ending": "afternoon",
     "Greeting": "kind regards,",
-    "Name": "test_name",
-    "submit": 1,
+    "Name": "",
+    "submit": 0,
     "topic": "damage",
     "type": "first"
   },
   "output": {
     "ending": "afternoon",
     "greeting": "kind regards,",
-    "name": "test_name",
+    "name": "",
     "topic": "damage",
     "type": "first"
   },
