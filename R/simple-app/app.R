@@ -1,7 +1,18 @@
 library(shiny)
 library(tidyverse)
-library(rdrop2) ##only if I need to connect app to my dropbox account##
+library(rdrop2) ##only if I need to connect app to my dropbox account-or maybe also for the user guide##
 library(readr) ##only if I need to read in a text file##
+
+#######To DO######
+
+##add copy to clipboard button
+
+##add an info popover for the guide panel so users know they will need to open web browser - will all webbrowsers work or just google?
+
+##add the option to create on sidepanel inputs---
+
+##change main r and add the exports etc.
+
 
 # Define the fields we want to save from the form
 fields <- c("type", "topic","Day", "Time", "greeting","name")
@@ -50,10 +61,6 @@ loadData <- function() {
   data
 }
 
-
-
-type1<-read_file("first.txt")
-type2<-read_file("reply.txt")
 
 
 #requirements
@@ -110,7 +117,7 @@ ui <- fluidPage(
       tabsetPanel(type ="tabs",
         tabPanel("User Guide",
                  
-                 tags$iframe(style="height:400px; width:100%; scrolling=yes",
+                 tags$iframe(style="height:450px; width:100%; scrolling=yes",
                              src="https://www.dropbox.com/s/6us8lvwrpvyqqxa/userguide.pdf?raw=1")),
         tabPanel("Summary",
                  textInput(inputId = 'inputsLocation2', label = 'Inputs Location2', value = "~/UVA/programming next step/Email_Agent_Template/R/simple-app/type.csv"),
