@@ -1,8 +1,8 @@
 library(shiny)
 library(tidyverse)
-library(rdrop2)
-library(shinydashboard)
-library(readr)
+library(rdrop2) ##only if I need to connect app to my dropbox account##
+library(readr) ##only if I need to read in a text file##
+
 # Define the fields we want to save from the form
 fields <- c("type", "topic","Day", "Time", "greeting","name")
 
@@ -100,29 +100,55 @@ ui <- fluidPage(
       textInput("Greeting","Type a greeting:","kind regards,"),
       textInput("Name","Type your Name:"),
       
-      actionButton("submit", "Submit")
-      
+      actionButton("submit", "Submit"),
+      textInput(inputId = 'inputsLocation', label = 'Inputs Location', value = "~/UVA/programming next step/Email_Agent_Template/R/simple-app/user_inputs1.csv"),
+      actionButton('load_inputs', 'Load inputs'),
+      actionButton('save_inputs', 'Save inputs')
     ),
     
     mainPanel(
       tabsetPanel(type ="tabs",
         tabPanel("User Guide",
+                 
                  tags$iframe(style="height:400px; width:100%; scrolling=yes",
                              src="https://www.dropbox.com/s/6us8lvwrpvyqqxa/userguide.pdf?raw=1")),
         tabPanel("Summary",
-                 textOutput("type"),
-                 textOutput("topic"),
-                 textOutput("ending"),
-                 textOutput("greeting"),
-                 textOutput("name")),
+                 textInput(inputId = 'inputsLocation2', label = 'Inputs Location2', value = "~/UVA/programming next step/Email_Agent_Template/R/simple-app/type.csv"),
+                 
+                 conditionalPanel(
+                   condition = "input.type == 'first'",
+
+                   textInput('first_response','first')),
+                 conditionalPanel(
+                   condition = "input.type == 'reply'",
+                 textInput('reply','reply')),
+                 conditionalPanel(
+                   condition = "input.type == 'phone'",
+                   textInput('phone','phone')),
+                 conditionalPanel(
+                   condition = "input.type == 'update'",
+                   textInput('update','update')),
+                 conditionalPanel(
+                   condition = "input.topic == 'damage'",
+                   
+                   textAreaInput('damage','damage')),
+                 
+                 actionButton('load_inputs2', 'Load inputs2'),
+                 actionButton('save_inputs2', 'Save inputs2'),
+                 
+                 ),
+                 
         tabPanel("Template",
-                 tags$div(
-                   tags$p(textOutput("type_t")),
-                   tags$p("topic"), 
-                   tags$p("ending"),
-                   tags$p("greeting"),
-                   tags$p("name")
-                 )
+                
+                 tags$p(textOutput("summary")),
+                 tags$p(textOutput("topsummary")),
+                 tags$p(textOutput("ending")),
+                 tags$p(textOutput("Greeting")),
+                 tags$p(textOutput("Name")),
+                 tags$p(""),
+                 tags$p(""),
+                 tags$p("")
+                 
                  )
       )
       
@@ -136,20 +162,9 @@ server <- function(input, output, session){
   
   output$topic<-renderText({input$topic})
   
-  output$ending<-renderText(paste0({input$Day}," ",{input$Time}))
   
-  output$greeting<-renderText({input$Greeting})
   
-  output$name<-renderText({input$Name})
   
-
- output$type_t <- renderText({
-   if(input$type=="reply"){
-     type_t<-type2
-   }else if(input$type=="first"){
-     type_t<-type1
-   }
- })
   
   # Whenever a field is filled, aggregate all form data
   formData <- reactive({
@@ -160,7 +175,37 @@ server <- function(input, output, session){
   # When the Submit button is clicked, save the form data
   observeEvent(input$submit, {
     saveData(formData())
+      
   })
+  
+  
+output$summary <- renderText({
+  if(input$type=="reply"){
+    input$reply
+  }else if(input$type=="first"){
+    input$first_response
+  }else if(input$type=="phone"){
+    input$phone
+  }else if(input$type=="update"){
+    input$update
+  }
+  })
+
+output$topsummary <- renderText({
+  if(input$topic=="damage"){
+    input$damage
+  }
+})
+
+output$ending<-renderText(paste0("I wish you a beautiful"," ",{input$Day}," ",{input$Time},"!"))
+
+output$Greeting <- renderText({
+  input$Greeting
+})
+
+output$Name <- renderText({
+  input$Name
+})
   
   # Show the previous responses
   # (update with current response when Submit is clicked)
@@ -168,6 +213,59 @@ server <- function(input, output, session){
     input$submit
     loadData()
   }) 
+  
+  observeEvent(input$load_inputs, {
+    # Load inputs
+    uploaded_inputs <- read.csv(input$inputsLocation)
+    # Update each input
+    for(i in 1:nrow(uploaded_inputs)){
+      updateTextInput(session,
+                      inputId = uploaded_inputs$inputId[i],
+                      value = uploaded_inputs$value[i])
+    }
+  })
+  
+  observeEvent(input$save_inputs, {
+    # Define inputs to save
+    inputs_to_save <- c('topic','type','Day','Time','Greeting', 'Name')
+    # Declare inputs
+    inputs <- NULL
+    # Append all inputs before saving to folder
+    for(input.i in inputs_to_save){
+      inputs <- append(inputs, input[[input.i]])
+    }
+    # Inputs data.frame
+    inputs_data_frame <- data.frame(inputId = inputs_to_save, value = inputs)
+    # Save Inputs
+    write.csv(inputs_data_frame, file = input$inputsLocation, row.names = FALSE)
+  }) 
+  
+  observeEvent(input$load_inputs2, {
+    # Load inputs
+    uploaded_inputs <- read.csv(input$inputsLocation2)
+    # Update each input
+    for(i in 1:nrow(uploaded_inputs)){
+      updateTextInput(session,
+                      inputId = uploaded_inputs$inputId[i],
+                      value = uploaded_inputs$value[i])
+    }
+  })
+  
+  observeEvent(input$save_inputs2, {
+    # Define inputs to save
+    inputs_to_save <- c('first_response','reply','phone','update','damage')
+    # Declare inputs
+    inputs <- NULL
+    # Append all inputs before saving to folder
+    for(input.i in inputs_to_save){
+      inputs <- append(inputs, input[[input.i]])
+    }
+    # Inputs data.frame
+    inputs_data_frame <- data.frame(inputId = inputs_to_save, value = inputs)
+    # Save Inputs
+    write.csv(inputs_data_frame, file = input$inputsLocation2, row.names = FALSE)
+  }) 
+  
   
 }
 shinyApp(ui=ui,server = server)
