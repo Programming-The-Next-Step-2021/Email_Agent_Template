@@ -1,0 +1,36 @@
+---
+title: "Overview of EmailTemplate"
+author: "Paula Ottens"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Overview
+
+The EmailTemplate Shiny app provides and easy-to-use load-save-and-click interface to create and load Email Templates.
+
+#Starting the Shiny App
+
+After opening RStudio and making sure you are running R version 3.5 or higher, the application can be started with just a few lines of code. In general, you'll want to load the latest stable release from CRAN:
+
+```{r setup}
+install.packages("EmailTemplate")
+library(EmailTemplate)
+EmailTemplate()
+```
+
+#Typical Workflow
+
+After opening the app, you will typically follow the workflow below. In short, you will load and save input data, tweak input choices and content, and then copy the resulting email template.
+
+![typical workflow of the app](~/UVA/programming next step/Email_Agent_Template/vignettes)
