@@ -1,16 +1,12 @@
+#' Create Email Template
+#'
+#' The package is currently under development.
+#' 
+#' @section run app:
+#' \emph{EmailTemplate} runs app.
+#' 
+#' @docType package
+#' @name EmailTemplate
+NULL
 
 
-
-#' Create Template
-#'
-#' @param x SOME DATA
-#' @param y SOME OTHER DATA
-#'
-#' @return The newly created template
-#' @export
-#'
-#' @examples
-#' newtemplate <- createTemplate(sampletemplate)
-createTemplate <- function(x,y){
-  x+y
-}
