@@ -7,7 +7,6 @@
 EmailTemplate <- function(){
   
   require(shiny)
-  require(tidyverse)
   
   #default choices for the opening line
   default_choices <- c("first_response", "reply","phone", "update")
