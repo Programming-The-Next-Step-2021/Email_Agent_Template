@@ -38,7 +38,7 @@ EmailTemplate()
 
 ## User Guide Tab
 
-When you open the app, you are taken to the User Guide Tab which contains a concise version of the current vignette. At the end of the user guide, you will also find contact information in case you have questions regarding the application, experience issues, or have suggestions for improvement. 
+When you open the app, you are taken to the <b>User Guide</b> tab which contains a concise version of the current vignette. At the end of the user guide, you will also find contact information in case you have questions regarding the application, experience issues, or have suggestions for improvement. 
 
 <left>
 
