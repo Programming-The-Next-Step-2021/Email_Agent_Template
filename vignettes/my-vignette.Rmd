@@ -74,7 +74,7 @@ More information about each step in the process is described below.
 
 ### Create & Select Path to an Excel File
 
-First, you will need to create and save an empty excel file as a *.csv file. When you open the app, you should be able to see a side panel that contains some default topics to choose from. At the top of the side panel you should be able to paste the path to your excel file in the field box titled 'Inputs Location'.
+First, you will need to create and save an empty excel file as a *.csv file. When you open the app, you should be able to see a side panel that contains some default topics to choose from. At the top of the side panel you should be able to paste the path to your excel file in the field box titled 'Inputs Location'. <b>Importantly</b>, you must paste the path <b>without</b> parentheses, otherwise the application will not be able to find the file.
 
 <left>
 
@@ -181,7 +181,7 @@ After saving, loading, and selecting your choices, navigate to the Content Edito
 
 ### Create & Select Path to an Excel File
 
-Once again, you will need to create and save an empty excel file to load and save your input for later usage of the application. Once you have done that, you will need to paste the path to your excel file in the Inputs Location field at the top of the Content Editor tab (see picture below).
+Once again, you will need to create and save an empty excel file to load and save your input for later usage of the application. Once you have done that, you will need to paste the path to your excel file in the Inputs Location field at the top of the Content Editor tab (see picture below). Again, you need to paste the path to the excel file <b>without</b> parentheses.
 
 <left>
 
