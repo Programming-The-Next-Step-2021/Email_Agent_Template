@@ -9,7 +9,7 @@ library(shinytest)
 ## the function is supposed to save the input data in a data frame and writes this data frame into a csv. file.
 ## If we test the function using a path to an empty csv file 
 ##it should create the same excel file as the user_inputs1.csv excel file 
-##(the file that is created when saving the default inputs of the sidepanel)
+##(the file that is created when saving the default inputs of the sidebar panel)
 
 
 
