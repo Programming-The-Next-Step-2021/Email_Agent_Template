@@ -1,16 +1,17 @@
 
 
-
-
+#'runs the shiny app
+#'
 #' @export
 
 EmailTemplate <- function(){
   
   require(shiny)
-  require(tidyverse)
   
+  #default choices for the opening line
   default_choices <- c("first_response", "reply","phone", "update")
   
+  #default topics for the main body of the email
   default_topics <- c("damage","productcomplaint","return","where is my parcel")
   
   ui <- fluidPage(
@@ -50,21 +51,20 @@ EmailTemplate <- function(){
       
       sidebarPanel(
         
-        
+        #setting the input location for the excel file 
         tags$b(textInput(inputId = 'inputsLocation', label = 'Inputs Location', value = "~/UVA/programming next step/Email_Agent_Template/R/user_inputs1.csv")),
         
         tags$p(""),
         
-        tags$b(textInput(
+        #input salutation
+        textInput(
           "Salutation",
           "Salutation",
           "Dear...,"
-        )),
+        ),
         
         
-        #dynamic types of responses with 4 default options
-        ##need to save new options for later usage
-        ##option to delete options again
+        #dynamic choices for the opening line with 4 default options
         selectInput("selector",
                     "Choose opening line",
                     choices = default_choices,
@@ -77,12 +77,12 @@ EmailTemplate <- function(){
           "Enter new choice if not present"
         ),
         
-        ##to add the extra choice
-        
+        ##button to add the extra choice
         actionButton("add_btn", "Add to choices"),
         
         tags$p(""),
         
+        #dynamic input for main body with four default topics
         selectInput("selector2",
                     "Choose topic",
                     choices = default_topics,
@@ -124,18 +124,23 @@ EmailTemplate <- function(){
       
       mainPanel(
         tabsetPanel(type ="tabs",
+                    
+                    #user guide in pdf format
                     tabPanel("User Guide",
                              
                              tags$iframe(style="height:450px; width:100%; scrolling=yes",
                                          src="https://www.dropbox.com/s/lj21r2i8xwb0poz/EMAIL%20TEMPLATE%20USER%20GUIDE.pdf?raw=1")),
+                    
+                    #content editor: user can customize content of opening line and topic
                     tabPanel("Content Editor",
                              
                              tags$p(""),
                              
+                             #input location for content 
                              textInput(inputId = 'inputsLocation2', label = 'Inputs Location2', value = "~/UVA/programming next step/Email_Agent_Template/R/type.csv"),
                              
-                             tags$div(id = 'placeholder'),
                              
+                             #conditional panels that are visible depending on opening line and topic picked
                              conditionalPanel(
                                condition = "input.selector == 'first_response'",
                                
@@ -166,11 +171,13 @@ EmailTemplate <- function(){
                                
                                textAreaInput('parcel','where is my parcel')),
                              
+                             #action button to save and load content
                              actionButton('load_inputs2', 'Load inputs2'),
                              actionButton('save_inputs2', 'Save inputs2'),
                              
                     ),
                     
+                    #template of email 
                     tabPanel("Template",
                              
                              tags$p(textOutput("Salutation")),
@@ -190,23 +197,16 @@ EmailTemplate <- function(){
     )
   )
   
-  
-  
-  
-  dataitems <- c(default_choices, default_topics)
-  
+  #server code
   server <- function(input, output, session){
     
-    output$selector<-renderText({input$selector})
     
-    output$selector2<-renderText({input$selector2})
+    #input of salutation is displayed in the template tab
+    output$Salutation <- renderText({
+      input$Salutation
+    }) 
     
-    
-    
-    type <- reactiveVal(default_choices)
-    
-    
-    
+    #if user has clicked the add_btn button, the input is added to the default_choices
     observeEvent(input$add_btn, {
       if (input$freetext == "") {
         showModal(
@@ -218,8 +218,7 @@ EmailTemplate <- function(){
         )
         return(NULL)
       } else {
-        # add the free text file to the reactive values
-        
+        # add the free text file to the default choices
         updateSelectInput( session,
                            inputId = "selector",
                            "Choose opening line",
@@ -230,10 +229,7 @@ EmailTemplate <- function(){
     })
     
     
-    
-    
-    topic <- reactiveVal(default_topics)
-    
+    #if user has clicked the add_btn button, the input is added to the default_topics
     observeEvent(input$add_btn2, {
       if (input$freetext2 == "") {
         showModal(
@@ -245,8 +241,7 @@ EmailTemplate <- function(){
         )
         return(NULL)
       } else {
-        # add the free text file to the reactive values
-        new_topics <- c(topic(), input$freetext2)
+        # add the free text file to the default topics
         updateSelectInput( session,
                            inputId = "selector2",
                            "Choose topic",
@@ -256,17 +251,13 @@ EmailTemplate <- function(){
       }
     })
     
-    
-    
-    output$Salutation <- renderText({
-      input$Salutation
-    }) 
-    
-    
+    #the template will display the opening line of the email 
+    #depending on which opening line was picked in the sidepanel,
+    #and edited in the content editor
     output$summary <- renderText({
       if(input$selector=="reply"){
         input$reply
-      }else if(input$selector=="first"){
+      }else if(input$selector=="first_response"){
         input$first_response
       }else if(input$selector=="phone"){
         input$phone
@@ -275,6 +266,9 @@ EmailTemplate <- function(){
       }
     })
     
+    #the template will display the main body of the email 
+    #depending on which topic was picked in the sidepanel,
+    #and edited in the content editor
     output$topsummary <- renderText({
       if(input$selector2=="damage"){
         input$damage
@@ -290,21 +284,24 @@ EmailTemplate <- function(){
       }
     })
     
+    #the closing line will be displayed in template. It dynamically changes 
+    #depending on which day and time was picked by the user in the sidepanel.
     output$ending<-renderText(paste0(
       "I wish you a beautiful"," ",{input$Day}," ",{input$Time},"!"))
     
+    #the sign-off depends on the user input of the sidepanel. If the user did not change
+    #the default option, the template will read 'kind regards'.
     output$Greeting <- renderText({
       input$Greeting
     })
     
+    #the name is only added to the end of the template if the user filled in his/her name
+    #in the sidepanel inputtext field 'Name'
     output$Name <- renderText({
       input$Name
     })
     
-    
-    
-    
-    
+    #if the user clicks the load inputs button, the input from the excel file is imported
     observeEvent(input$load_inputs, {
       # Load inputs
       
@@ -319,6 +316,8 @@ EmailTemplate <- function(){
       
     })
     
+    #if the user clickes the load input button in the sidepanel, the inputs are exported to the
+    #csv file specified in the inputsLocation
     observeEvent(input$save_inputs, {
       # Define inputs to save
       
@@ -335,6 +334,8 @@ EmailTemplate <- function(){
       write.csv(inputs_data_frame, file = input$inputsLocation, row.names = FALSE)
     }) 
     
+    #if user clicks the load input button in the content editor the customized content
+    #is loaded into the textinput fields.
     observeEvent(input$load_inputs2, {
       # Load inputs
       uploaded_inputs <- read.csv(input$inputsLocation2)
@@ -346,8 +347,10 @@ EmailTemplate <- function(){
       }
     })
     
+    #if user clicks the save input button in the content editor,
+    #the content is exported to the excel file that is specified
+    #in the inputsLocation2
     observeEvent(input$save_inputs2, {
-      
       
       # Define inputs to save
       inputs_to_save <- c('first_response','reply','phone','update','damage',"productcomplaint","return","parcel")
@@ -366,6 +369,7 @@ EmailTemplate <- function(){
     
   }
   
+  #to run shiny app
   shinyApp(ui=ui,server = server)
 }
 

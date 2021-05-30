@@ -2,18 +2,16 @@ library(shiny)
 library(testthat)
 library(shinytest)
 
+#testing shiny app
+context('core Email Template functionality')
+
+#open shiny app
 app <- ShinyDriver$new("~/UVA/programming next step/Email_Agent_Template/tests/app")
 
+#get all values
 vals <- app$getAllValues()
 
 str(vals)
-
-
-
-library(EmailTemplate) 
-
-context('core Email Template functionality')
-
 
 
 test_that('functionality of load data function',{
@@ -21,6 +19,6 @@ test_that('functionality of load data function',{
 })
 
 
-
-
+#stop shiny app
+app$stop
 
