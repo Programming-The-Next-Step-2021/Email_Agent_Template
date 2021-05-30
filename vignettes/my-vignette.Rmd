@@ -26,7 +26,7 @@ The EmailTemplate Shiny app provides an easy-to-use load-save-and-click interfac
 
 ## Starting the Shiny App
 
-After opening RStudio and making sure you are running R version 3.5 or higher, the application can be started with just a few lines of code. In general, you'll want to load the latest stable release from CRAN:
+After opening RStudio, the application can be started with just a few lines of code. In general, you'll want to load the latest release from CRAN:
 
 ```{r, eval = FALSE}
 install.packages("shiny")
@@ -55,7 +55,7 @@ Notable, the user guide is a dropbox-shared pdf and can, hence, only be viewed w
 
 ## Typical Workflow
 
-After opening the app, you will typically follow the work flow below. In short, you will load and save input data, tweak input choices and content, and then copy the resulting email template.
+After opening the app, you will typically follow the workflow below. In short, you will load and save input data, tweak input choices and content, and then copy the resulting email template.
 
 <left>
 
@@ -74,7 +74,7 @@ More information about each step in the process is described below.
 
 ### Create & Select Path to an Excel File
 
-First, you will need to create and save an empty excel file as a *.csv file. When you open the app, you should be able to see a side panel which contains some default topics to choose from. At the top of the side panel you should be able to paste the path to your excel file in the field box titled 'Inputs Location'.
+First, you will need to create and save an empty excel file as a *.csv file. When you open the app, you should be able to see a side panel that contains some default topics to choose from. At the top of the side panel you should be able to paste the path to your excel file in the field box titled 'Inputs Location'.
 
 <left>
 
@@ -83,7 +83,7 @@ First, you will need to create and save an empty excel file as a *.csv file. Whe
 
 ### Configure Sidebarpanel
 
-In the sidebar panel you can see and edit various input choices (see a picture of the complete sidebar panel below).
+In the sidebar panel, you can see and edit various input choices (see a picture of the complete sidebar panel below).
 
 <left>
 
@@ -101,14 +101,14 @@ The first input you can edit is titled 'Salutation'. The salutation addresses th
 
 #### Opening Line
 
-The first input you can select from is the 'Choose opening line' input field. The opening of your email introduces the response type of the email.There are four default topics to choose from.  For instance, you would pick the opening line 'reply' if you are responding to a reply of the recipient in question (see picture of the default choices below).
+The second input you can select from is the 'Choose opening line' input field. The opening of your email introduces the response type of the email. There are four default topics to choose from.  For instance, you would pick the opening line 'reply' if you are responding to a reply of the recipient in question (see a picture of the default choices below).
 
 <left>
 
 ![default choices](defaultchoices.png){width=35%}
 </left>
 
-If you cannot find what you are looking for, you can enter a new choice of opening line in the text input field. You can add it to the default choices by clicking the 'Add to choices..' button (see a picture of the input field and button below). .
+If you cannot find what you are looking for, you can enter a new choice of the opening line in the text input field. You can add it to the default choices by clicking the 'Add to choices..' button (see a picture of the input field and button below). 
 
 <left>
 
@@ -117,7 +117,7 @@ If you cannot find what you are looking for, you can enter a new choice of openi
 
 #### Topic
 
-The second input you can choose from is titled 'Choose topic'. This input field refers to the overall topic of your email. In essence, it will set the topic for the main body of your template. The body of an email normally elaborates on the purpose of the email and contains detailed information. Again, there are four default choices (see picture below). 
+The third input you can choose from is titled 'Choose topic'. This input field refers to the overall topic of your email. In essence, it will set the topic for the main body of your template. The body of an email normally elaborates on the purpose of the email and contains detailed information. Again, there are four default choices (see picture below). 
 
 <left>
 
@@ -134,7 +134,7 @@ You can complement those choices by entering a new topic in the empty text field
 
 #### Choose Day of Week & Choose Time of Day
 
-The third and forth inputs you can choose from are titled 'Choose day of week' and 'Choose time of day' respectively. You can select the present day of the week and time of the day. Doing so will compose a day and time appropriate greeting line (see pictures below). 
+The fourth and fifth inputs you can choose from are titled 'Choose day of week' and 'Choose time of day' respectively. You can select the present day of the week and the time of the day. Doing so will compose a day and time-appropriate greeting line (see pictures below). 
 
 <left>
 
@@ -146,7 +146,7 @@ The third and forth inputs you can choose from are titled 'Choose day of week' a
 
 #### Closing Line & Insert your Name
 
-The final inputs to edit are titled 'Closing Line' and 'Insert your Name' respectively. You can sign off your email with a closing line and and seal it with your name. The popular sign off 'kind regards,..' is set as a default, but feel free to insert a different closing line.
+The final inputs to edit are titled 'Closing Line' and 'Insert your Name' respectively. You can sign-off your email with a closing line and seal it with your name. The popular sign off 'kind regards,..' is set as a default, but feel free to insert a different closing line.
 
 <left>
 
@@ -163,7 +163,7 @@ You can save the input data and load it the next time you are using the applicat
 </left>
 
 
-Importantly, the excel file cannot be open while saving or loading inputs. If the excel file open during the export-import processing, the following error will show:
+Importantly, the excel file cannot be open while saving or loading inputs. If the excel file is open during the export-import processing, the following error will show:
 
 <left>
 
@@ -181,7 +181,7 @@ After saving, loading, and selecting your choices, navigate to the Content Edito
 
 ### Create & Select Path to an Excel File
 
-Once again, you will need to create and save an empty excel file to be able to load and save your input for later usage of the application. Once you have done that, you will need to paste the path to your excel file in the Inputs Location field at the top of the Content Editor tab (see picture below).
+Once again, you will need to create and save an empty excel file to load and save your input for later usage of the application. Once you have done that, you will need to paste the path to your excel file in the Inputs Location field at the top of the Content Editor tab (see picture below).
 
 <left>
 
@@ -199,7 +199,7 @@ After inserting the path to your excel file, you can customize the content of yo
 
 ### View and Export Template
 
-Once you have customized or loaded your content from previous sessions, you can proceed to the Template tab. Here you can view what the complete email template looks like. If you are satisfied with the result, you can copy it and insert it to your email draft. An example template is displayed in the picture below.
+Once you have customized or loaded your content from previous sessions, you can proceed to the Template tab. Here you can view what the complete email template looks like. If you are satisfied with the result, you can copy it and insert it into your email draft. An example template is displayed in the picture below.
 
 <left>
 
@@ -212,7 +212,7 @@ What should your Excel table look like?
 
 #### First Excel Table
 
-If you save the inputs of the side panel as they are, when opening the application, your excel table should look like the one below:
+If you save the inputs of the side panel as they are when opening the application, your excel table should look like the one below:
 
 <left>
 
@@ -221,7 +221,7 @@ If you save the inputs of the side panel as they are, when opening the applicati
 
 #### Second Excel Table
 
-If you have selected 'reply' as an opening line, and saved the input 'Thank you for your reply', your excel table should look like the one below:
+If you have selected 'reply' as an opening line and saved the input 'Thank you for your reply', your excel table should look like the one below:
 
 <left>
 
