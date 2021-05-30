@@ -9,20 +9,18 @@ vals <- app$getAllValues()
 str(vals)
 
 
-library(EmailTemplate) ##make sure it works 
+
+library(EmailTemplate) 
 
 context('core Email Template functionality')
 
-test_check("EmailTemplate")
+
 
 test_that('functionality of load data function',{
-  expect_identical(vals$export, read.csv("expected_output.csv"))
+  expect_identical(vals$export, read.csv("~/UVA/programming next step/Email_Agent_Template/expected_output.csv"))
 })
 
 
-
-##if a certain input is given, function should produce a certain ##
-##excel file which is save to the dropbox account##
 
 
 
