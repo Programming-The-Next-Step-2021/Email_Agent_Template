@@ -1,16 +1,13 @@
+#' Create Email Template
+#'
+#' This package allows you to run a shiny app that helps you to save and load email templates.
+#' 
+#' 
+#' @section run app:
+#' \emph{EmailTemplate} runs app.
+#' 
+#' @docType package
+#' @name EmailTemplate
+NULL
 
 
-
-#' Create Template
-#'
-#' @param x SOME DATA
-#' @param y SOME OTHER DATA
-#'
-#' @return The newly created template
-#' @export
-#'
-#' @examples
-#' newtemplate <- createTemplate(sampletemplate)
-createTemplate <- function(x,y){
-  x+y
-}
