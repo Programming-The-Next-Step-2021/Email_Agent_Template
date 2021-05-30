@@ -1,2 +1,8 @@
-type,topic,ending,greeting,name
-first,damage,morning,NULL,NULL
+inputId,value
+Salutation,"Dear...,"
+selector,first_response
+selector2,damage
+Day,Monday
+Time,morning
+Greeting,"kind regards,"
+Name,
