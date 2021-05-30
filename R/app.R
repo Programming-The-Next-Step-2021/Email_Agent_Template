@@ -1,21 +1,5 @@
 
 
-#######To DO######
-
-##add copy to clipboard button
-
-##add an info popover for the guide panel so users know they will need to open web browser - will all webbrowsers work or just google?
-
-##how can I create dynamic select input choices? so that user can pick their own topics...
-
-##change main r and add the exports etc.
-
-##is there an easier way than adding each topic as a conditional panel?
-
-
-# Define the fields we want to save from the form
-
-
 
 
 #' @export
@@ -143,7 +127,7 @@ EmailTemplate <- function(){
                     tabPanel("User Guide",
                              
                              tags$iframe(style="height:450px; width:100%; scrolling=yes",
-                                         src="https://www.dropbox.com/s/6us8lvwrpvyqqxa/userguide.pdf?raw=1")),
+                                         src="https://www.dropbox.com/s/lj21r2i8xwb0poz/EMAIL%20TEMPLATE%20USER%20GUIDE.pdf?raw=1")),
                     tabPanel("Content Editor",
                              
                              tags$p(""),
